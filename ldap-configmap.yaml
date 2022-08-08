@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2016-02-18T18:52:05Z
+  name: teamcity-ldap-properties
+  namespace: teamcity
+data:
+  ldap-config.properties: |
+    java.naming.provider.url=ldap://lucasnet.int:389/DC=lucasnet,DC=int
+    java.naming.security.principal=CN=ldap_sa,OU=ServiceAccounts,OU=Lucasnet,DC=lucasnet,DC=int
+    java.naming.security.credentials=###CHANGE_ME###
+    teamcity.users.login.filter=(sAMAccountName=$capturedLogin$)
+    teamcity.users.username=sAMAccountName
+
+    # User synchronization: on, synchronize display name and email.
+    teamcity.options.users.synchronize=true
+    teamcity.users.filter=(objectClass=user)
+    teamcity.users.property.displayName=displayName
+    teamcity.users.property.email=mail
+
+    # Automatic user creation and deletion during user synchronization
+    teamcity.options.createUsers=true
+    teamcity.options.deleteUsers=true
