@@ -15,3 +15,5 @@ RUN apt autoremove -y && apt-get upgrade -y
 COPY lucasnetCA.crt /usr/local/share/ca-certificates/
 RUN keytool -import -alias lucasnet-int -trustcacerts -file /usr/local/share/ca-certificates/lucasnetCA.crt -keystore /opt/java/openjdk/lib/security/cacerts -storepass changeit
 RUN update-ca-certificates
+RUN update-rc.d docker defaults
+RUN /etc/init.d/docker start
